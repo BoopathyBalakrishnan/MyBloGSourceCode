@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="GoSmarter">
+
+	<resultMap id="userResult" class="com.goSmarter.dto.User">
+		<result property="id" column="id" />
+		<result property="facebookid" column="facebookid" />
+		<result property="age" column="age" />
+		<result property="currentLocation" column="currentLocation" />
+		<result property="origin" column="origin" />
+		<result property="luxury" column="luxury" />
+		<result property="latest" column="latest" />
+		<result property="gender" column="gender" />
+	</resultMap>
+
+	<resultMap id="userItemResult" class="com.goSmarter.dto.UserItemPurchaseHistory">
+		<result property="id" column="id" />
+		<result property="userId" column="userId" />
+		<result property="itemId" column="itemId" />
+		<result property="likedDate" column="likedDate" />
+	</resultMap>
+
+	<resultMap id="itemResult" class="com.goSmarter.dto.Item">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="link" column="link" />
+		<result property="category" column="category" />
+		<result property="brand" column="brand" />
+		<result property="price" column="price" />
+	</resultMap>
+
+	<parameterMap id="parmmap" class="map">
+		<parameter property="userId" jdbcType="Integer" javaType="java.lang.Integer" />
+	</parameterMap>
+
+	<parameterMap id="parmmap1" class="map">
+		<parameter property="itemId" jdbcType="Integer" javaType="java.lang.Integer" />
+	</parameterMap>
+
+	<select id="userCount" resultClass="java.lang.Integer">
+		SELECT count(ID) FROM USER
+	</select>
+
+	<select id="userList" resultMap="userResult">
+		SELECT * FROM USER
+	</select>
+
+	<select id="userItemList" resultMap="userItemResult" 
+		parameterMap="parmmap">
+		SELECT * FROM USERITEMHISTORY where userId=?
+	</select>
+
+	<select id="itemDetails" resultMap="itemResult" 
+		parameterMap="parmmap1">
+		SELECT * FROM ITEM where id=?
+	</select>
+
+</sqlMap>
